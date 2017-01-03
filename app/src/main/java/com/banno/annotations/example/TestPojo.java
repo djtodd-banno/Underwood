@@ -10,6 +10,7 @@ public class TestPojo {
     public int integer;
     public boolean bool;
     public double dubs;
+    public String shackattack;
     public InnerTestPojo innerPojoTest;
 
     public TestPojo(){

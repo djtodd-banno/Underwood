@@ -18,7 +18,7 @@ import javax.lang.model.element.TypeElement;
 import javax.tools.Diagnostic;
 
 @AutoService(Processor.class)
-public class UnderwoodProcessor extends AbstractProcessor {
+public final class UnderwoodProcessor extends AbstractProcessor {
 
     private Messager mMessager;
     private UnderwoodCodeGenerator mGenerator;
@@ -43,15 +43,15 @@ public class UnderwoodProcessor extends AbstractProcessor {
     @Override
     public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment env) {
 
-        UnderWoodSupplier.handle(env.getElementsAnnotatedWith(Underwood.class))
+        UnderwoodSupplier.handle(env.getElementsAnnotatedWith(Underwood.class))
                          .onError(error())
                          .flatMap(generateCode());
 
         return true;
     }
 
-    private UnderWoodSupplier.UnderwoodConsumer generateCode() {
-        return new UnderWoodSupplier.UnderwoodConsumer() {
+    private UnderwoodSupplier.UnderwoodConsumer generateCode() {
+        return new UnderwoodSupplier.UnderwoodConsumer() {
             @Override
             public void consume(UnderwoodAnnotatedClass annotatedClass) {
                 mGenerator.onError(error())
@@ -73,7 +73,7 @@ public class UnderwoodProcessor extends AbstractProcessor {
 
     }
 
-    public interface ErrorHandler {
+    interface ErrorHandler {
 
         void onError(Element e, String msg, Object... args);
     }

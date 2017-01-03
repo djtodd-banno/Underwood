@@ -21,7 +21,7 @@ import javax.lang.model.element.Modifier;
 import static com.squareup.javapoet.MethodSpec.methodBuilder;
 import static com.squareup.javapoet.TypeSpec.classBuilder;
 
-public class UnderwoodCodeGenerator {
+final class UnderwoodCodeGenerator {
 
     private static final String SUFIX = "$UnderwoodAdapter";
     private static final String PACKAGE_NAME = "com.banno.underwood";
@@ -31,17 +31,17 @@ public class UnderwoodCodeGenerator {
     private UnderwoodProcessor.ErrorHandler mErrorHandler;
 
 
-    public UnderwoodCodeGenerator(Filer filer) {
+    UnderwoodCodeGenerator(Filer filer) {
         mFiler = filer;
 
     }
 
-    public UnderwoodCodeGenerator onError(UnderwoodProcessor.ErrorHandler handler) {
+    UnderwoodCodeGenerator onError(UnderwoodProcessor.ErrorHandler handler) {
         mErrorHandler = handler;
         return this;
     }
 
-    public void generateCode(UnderwoodAnnotatedClass annotatedClass) {
+    void generateCode(UnderwoodAnnotatedClass annotatedClass) {
 
         final MethodSpec read = generateReadMethod(annotatedClass);
 

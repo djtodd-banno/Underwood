@@ -1,8 +1,6 @@
 package com.banno.grip.annotationprocessor.processor.underwood;
 
 
-import com.squareup.javapoet.TypeName;
-
 import java.util.Set;
 
 import javax.lang.model.element.Element;
@@ -10,20 +8,20 @@ import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.Modifier;
 
-public class UnderWoodSupplier {
+final class UnderwoodSupplier {
 
     private Set<? extends Element> mAnnotatedElements;
     private UnderwoodProcessor.ErrorHandler mErrorHandler;
 
-    private UnderWoodSupplier(Set<? extends Element> elements) {
+    private UnderwoodSupplier(Set<? extends Element> elements) {
         mAnnotatedElements = elements;
     }
 
-    public static UnderWoodSupplier handle(Set<? extends Element> elements) {
-        return new UnderWoodSupplier(elements);
+    static UnderwoodSupplier handle(Set<? extends Element> elements) {
+        return new UnderwoodSupplier(elements);
     }
 
-    public UnderWoodSupplier onError(UnderwoodProcessor.ErrorHandler handler) {
+    UnderwoodSupplier onError(UnderwoodProcessor.ErrorHandler handler) {
         mErrorHandler = handler;
         return this;
     }
@@ -34,7 +32,7 @@ public class UnderWoodSupplier {
         }
     }
 
-    public void flatMap(UnderwoodConsumer consumer) {
+    void flatMap(UnderwoodConsumer consumer) {
         for (Element element : mAnnotatedElements) {
             if (validate(element)) {
                 consumer.consume(new UnderwoodAnnotatedClass(element));
@@ -111,7 +109,7 @@ public class UnderWoodSupplier {
         return element.getKind() == ElementKind.CLASS;
     }
 
-    public interface UnderwoodConsumer {
+    interface UnderwoodConsumer {
 
         void consume(UnderwoodAnnotatedClass annotatedClass);
     }

@@ -6,11 +6,6 @@ import com.banno.annotations.HelloWorld;
 import com.banno.annotations.Underwood;
 import com.banno.grip.annotationprocessor.processor.helloworld.HelloWorldAnnotatedClass;
 import com.banno.grip.annotationprocessor.processor.helloworld.WorldGroupedClasses;
-import com.banno.grip.annotationprocessor.processor.underwood.UnderWoodSupplier;
-import com.banno.grip.annotationprocessor.processor.underwood.UnderwoodAnnotatedClass;
-import com.banno.grip.annotationprocessor.processor.underwood.UnderwoodCodeGenerator;
-import com.banno.grip.annotationprocessor.processor.underwood.UnderwoodProcessor;
-import com.google.auto.service.AutoService;
 
 import java.io.IOException;
 import java.util.HashSet;
@@ -22,7 +17,6 @@ import javax.annotation.processing.AbstractProcessor;
 import javax.annotation.processing.Filer;
 import javax.annotation.processing.Messager;
 import javax.annotation.processing.ProcessingEnvironment;
-import javax.annotation.processing.Processor;
 import javax.annotation.processing.RoundEnvironment;
 import javax.lang.model.SourceVersion;
 import javax.lang.model.element.Element;
@@ -45,7 +39,6 @@ public class GripAnnotationProcessor extends AbstractProcessor {
     private Filer filer;
     private Messager messager;
     private Map<String, WorldGroupedClasses> helloWorldClasses = new LinkedHashMap<>();
-    private UnderwoodCodeGenerator mGenerator;
 
     @Override
     public synchronized void init(ProcessingEnvironment env) {
@@ -53,7 +46,6 @@ public class GripAnnotationProcessor extends AbstractProcessor {
         elementUtils = env.getElementUtils();
         filer = env.getFiler();
         messager = env.getMessager();
-        mGenerator = new UnderwoodCodeGenerator(filer);
     }
 
     @Override
@@ -76,10 +68,6 @@ public class GripAnnotationProcessor extends AbstractProcessor {
     @Override
     public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment env) {
         processWorld(annotations, env);
-
-        UnderWoodSupplier.handle(env.getElementsAnnotatedWith(Underwood.class))
-                         .onError(error())
-                         .flatMap(generateCode());
 
 
         return true;
@@ -233,27 +221,7 @@ public class GripAnnotationProcessor extends AbstractProcessor {
                 e);
     }
 
-    private UnderWoodSupplier.UnderwoodConsumer generateCode() {
-        return new UnderWoodSupplier.UnderwoodConsumer() {
-            @Override
-            public void consume(UnderwoodAnnotatedClass annotatedClass) {
-                mGenerator.onError(error())
-                          .generateCode(annotatedClass);
-            }
-        };
-    }
 
-    private UnderwoodProcessor.ErrorHandler error() {
-        return new UnderwoodProcessor.ErrorHandler() {
-            @Override
-            public void onError(Element e, String msg, Object... args) {
-                messager.printMessage(
-                        Diagnostic.Kind.ERROR,
-                        String.format(msg, args),
-                        e);
-            }
-        };
 
-    }
 
 }

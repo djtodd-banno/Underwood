@@ -1,7 +1,5 @@
 package com.banno.grip.annotationprocessor.processor.underwood;
 
-
-import com.banno.annotations.Underwood;
 import com.squareup.javapoet.TypeName;
 
 import java.util.ArrayList;
@@ -12,7 +10,7 @@ import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.element.TypeElement;
 
-public class UnderwoodAnnotatedClass {
+final class UnderwoodAnnotatedClass {
 
     private TypeElement mTypeElement;
     private String mQualifiedName;
@@ -21,7 +19,7 @@ public class UnderwoodAnnotatedClass {
     private List<FieldHolder> mObjectFields;
 
 
-    public UnderwoodAnnotatedClass(Element element) {
+    UnderwoodAnnotatedClass(Element element) {
         mTypeElement = (TypeElement) element;
         mSimpleTypeName = mTypeElement.getSimpleName().toString();
         mQualifiedName = mTypeElement.getQualifiedName().toString();
@@ -48,28 +46,28 @@ public class UnderwoodAnnotatedClass {
 
     }
 
-    public TypeElement getTypeElement() {
+    TypeElement getTypeElement() {
         return mTypeElement;
     }
 
 
-    public String getSimpleTypeName() {
+    String getSimpleTypeName() {
         return mSimpleTypeName;
     }
 
-    public String getmQualifiedName() {
+    String getmQualifiedName() {
         return mQualifiedName;
     }
 
-    public TypeName getType() {
+    TypeName getType() {
         return TypeName.get(mTypeElement.asType());
     }
 
-    public List<FieldHolder> getPrimitiveFields() {
+    List<FieldHolder> getPrimitiveFields() {
         return mPrimitiveFields;
     }
 
-    public List<FieldHolder> getObjectFields() {
+    List<FieldHolder> getObjectFields() {
         return mObjectFields;
     }
 
@@ -78,7 +76,7 @@ public class UnderwoodAnnotatedClass {
         final String name;
         final TypeName type;
 
-        public FieldHolder(String name, TypeName type) {
+        FieldHolder(String name, TypeName type) {
             this.name = name;
             this.type = type;
         }
