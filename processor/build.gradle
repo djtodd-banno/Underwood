@@ -1,0 +1,20 @@
+apply plugin: 'java'
+
+sourceCompatibility = 1.7
+targetCompatibility = 1.7
+
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'com.google.auto.service:auto-service:1.0-rc2'
+
+    /*Since JavaWriter is very very popular there are many other processors, libraries and tools
+     depending on JavaWriter. This maybe will cause problems if you use dependency management tools
+     like maven or gradle if one library depends on a newer version of JavaWriter as another one.
+     Therefore I recommend to copy and repackage JavaWriter directly into your annotation processor
+     code base (it’s just one java file).*/
+    compile 'com.squareup:javapoet:1.8.0'
+    compile 'com.squareup:javawriter:2.5.1'
+    compile 'com.google.code.gson:gson:2.7'
+    compile project(path: ':bannoannotations')
+}
