@@ -183,7 +183,7 @@ final class UnderwoodCodeGenerator {
         } else if (holder.type.equals(TypeName.INT) || holder.type.equals(TypeName.INT.box())
                 || holder.type.equals(TypeName.BYTE) || holder.type.equals(TypeName.BYTE.box())
                 || holder.type.equals(TypeName.SHORT) || holder.type.equals(TypeName.SHORT.box())) {
-            return "Integer";
+            return "Int";
         } else if (holder.type.equals(TypeName.LONG) || holder.type.equals(TypeName.LONG.box())) {
             return "Long";
         } else if (holder.type.equals(TypeName.DOUBLE) || holder.type.equals(

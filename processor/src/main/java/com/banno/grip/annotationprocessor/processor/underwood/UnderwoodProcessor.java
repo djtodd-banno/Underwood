@@ -37,12 +37,12 @@ public final class UnderwoodProcessor extends AbstractProcessor {
 
     @Override
     public Set<String> getSupportedAnnotationTypes() {
-        return Sets.newHashSet(Underwood.class.getCanonicalName());
+        return Sets.newHashSet(Underwood.class.getCanonicalName(),
+                               Underwood.Field.class.getCanonicalName());
     }
 
     @Override
     public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment env) {
-
         UnderwoodSupplier.handle(env.getElementsAnnotatedWith(Underwood.class))
                          .onError(error())
                          .map(generateCode());
@@ -70,11 +70,9 @@ public final class UnderwoodProcessor extends AbstractProcessor {
                         e);
             }
         };
-
     }
 
     interface ErrorHandler {
-
         void onError(Element e, String msg, Object... args);
     }
 }

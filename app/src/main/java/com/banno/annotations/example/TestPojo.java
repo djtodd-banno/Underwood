@@ -11,6 +11,7 @@ public class TestPojo {
     public boolean bool;
     public double dubs;
     public String shackattack;
+    @Underwood.Field
     public InnerTestPojo innerPojoTest;
 
     public TestPojo(){
