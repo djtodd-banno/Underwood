@@ -1,6 +1,5 @@
 package com.banno.grip.annotationprocessor.processor.underwood;
 
-
 import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
@@ -26,14 +25,11 @@ final class UnderwoodCodeGenerator {
     private static final String SUFIX = "$UnderwoodAdapter";
     private static final String PACKAGE_NAME = "com.banno.underwood";
 
-
     private Filer mFiler;
     private UnderwoodProcessor.ErrorHandler mErrorHandler;
 
-
     UnderwoodCodeGenerator(Filer filer) {
         mFiler = filer;
-
     }
 
     UnderwoodCodeGenerator onError(UnderwoodProcessor.ErrorHandler handler) {
@@ -142,7 +138,6 @@ final class UnderwoodCodeGenerator {
     private CodeBlock handleInnerObjects(UnderwoodAnnotatedClass annotatedClass, String pojo) {
         final CodeBlock.Builder builder = CodeBlock.builder();
 
-
         for (UnderwoodAnnotatedClass.FieldHolder holder : annotatedClass.getObjectFields()) {
             final String[] split = holder.type.toString().split("\\.");
             final String adapterType = split[split.length - 1] + SUFIX;
@@ -174,9 +169,7 @@ final class UnderwoodCodeGenerator {
                                           pojo,
                                           holder.name,
                                           getType(holder));
-
         }
-
 
         return caseStatement
                 + "    }\n"
@@ -190,7 +183,7 @@ final class UnderwoodCodeGenerator {
         } else if (holder.type.equals(TypeName.INT) || holder.type.equals(TypeName.INT.box())
                 || holder.type.equals(TypeName.BYTE) || holder.type.equals(TypeName.BYTE.box())
                 || holder.type.equals(TypeName.SHORT) || holder.type.equals(TypeName.SHORT.box())) {
-            return "Int";
+            return "Integer";
         } else if (holder.type.equals(TypeName.LONG) || holder.type.equals(TypeName.LONG.box())) {
             return "Long";
         } else if (holder.type.equals(TypeName.DOUBLE) || holder.type.equals(
