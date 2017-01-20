@@ -32,7 +32,7 @@ final class UnderwoodSupplier {
         }
     }
 
-    void flatMap(UnderwoodConsumer consumer) {
+    void map(UnderwoodConsumer consumer) {
         for (Element element : mAnnotatedElements) {
             if (validate(element)) {
                 consumer.consume(new UnderwoodAnnotatedClass(element));

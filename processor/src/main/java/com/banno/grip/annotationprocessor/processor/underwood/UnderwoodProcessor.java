@@ -45,7 +45,7 @@ public final class UnderwoodProcessor extends AbstractProcessor {
 
         UnderwoodSupplier.handle(env.getElementsAnnotatedWith(Underwood.class))
                          .onError(error())
-                         .flatMap(generateCode());
+                         .map(generateCode());
 
         return true;
     }

@@ -15,7 +15,7 @@ class UnderwoodUtils {
 
     }
 
-    static boolean isAnnotatedWithUnderwood(Element enclosedElement) {
+    static boolean isAnnotatedWithUnderwood(Element element) {
         //TODO: find a way to tell if this element's class is annotated with Underwood
         return true;
     }
